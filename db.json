@@ -16,9 +16,9 @@
     },
     {
       "id": "3",
-      "tipo": "especial",
-      "direccion": "Centro Histórico, Plaza Grande, García Moreno y Chile, Quito",
-      "estado": "Dañado",
+      "tipo": "reciclaje",
+      "direccion": "sdffdsf",
+      "estado": "Activo",
       "observaciones": "Contenedor vandalizado, requiere reparación urgente"
     },
     {
@@ -97,6 +97,13 @@
       "direccion": "asd",
       "estado": "Activo",
       "observaciones": "asdasd"
+    },
+    {
+      "id": "16",
+      "tipo": "reciclaje",
+      "direccion": "sdf",
+      "estado": "Dañado",
+      "observaciones": "sdfsf"
     }
   ]
 }
