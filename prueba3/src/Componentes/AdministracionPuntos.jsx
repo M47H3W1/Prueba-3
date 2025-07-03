@@ -77,8 +77,14 @@ const AdministracionPuntos = () => {
     
     axios.get(ENDPOINT)
       .then(response => {
+        // Normalizar los IDs a string y filtrar puntos válidos
+        const normalizedPoints = response.data.map(point => ({
+          ...point,
+          id: String(point.id) // Convertir ID a string para consistencia
+        }));
+
         // Filtrar puntos que tienen todos los campos requeridos
-        const validPoints = response.data.filter(point => 
+        const validPoints = normalizedPoints.filter(point => 
           point.id && point.tipo && point.direccion && point.estado && point.observaciones
         );
         
@@ -136,7 +142,7 @@ const AdministracionPuntos = () => {
           console.error('❌ Error al actualizar:', error.message);
           if (error.response?.status === 404) {
             showModal('Error', 'El punto de recolección ya no existe. Se actualizará la lista.', 'error');
-            fetchPuntosRecoleccion(); // Refrescar la lista
+            fetchPuntosRecoleccion();
           } else {
             showModal('Error', 'No se pudo actualizar el punto de recolección', 'error');
           }
@@ -184,11 +190,16 @@ const AdministracionPuntos = () => {
       return;
     }
 
-    const pointToDelete = puntosRecoleccion.find(point => point.id == id);
-    console.log('🗑️ Solicitando eliminar:', pointToDelete?.id);
+    // Convertir el ID a string para comparación consistente
+    const idString = String(id);
+    const pointToDelete = puntosRecoleccion.find(point => String(point.id) === idString);
+    
+    console.log('🗑️ Solicitando eliminar ID:', idString);
+    console.log('📋 Punto encontrado:', pointToDelete);
     
     // Verificar que el punto existe en la lista actual
     if (!pointToDelete) {
+      console.warn('⚠️ Punto no encontrado en lista local para ID:', idString);
       showModal('Error', 'El punto de recolección no existe en la lista actual', 'error');
       fetchPuntosRecoleccion(); // Refrescar la lista
       return;
@@ -196,12 +207,12 @@ const AdministracionPuntos = () => {
     
     showModal(
       'Confirmar Eliminación',
-      `¿Eliminar el punto de recolección ID ${id}?\n\nDirección: ${pointToDelete.direccion}`,
+      `¿Eliminar el punto de recolección ID ${idString}?\n\nDirección: ${pointToDelete.direccion}`,
       'confirm',
       () => {
-        console.log('🔄 Eliminando punto ID:', id);
+        console.log('🔄 Eliminando punto ID:', idString);
         
-        axios.delete(`${ENDPOINT}/${id}`)
+        axios.delete(`${ENDPOINT}/${idString}`)
           .then(() => {
             console.log('✅ Punto eliminado exitosamente');
             showModal('Éxito', 'Punto de recolección eliminado correctamente', 'success');
@@ -215,10 +226,10 @@ const AdministracionPuntos = () => {
             if (error.response?.status === 404) {
               showModal(
                 'Punto No Encontrado', 
-                `El punto con ID ${id} ya no existe en el servidor. Se actualizará la lista.`, 
+                `El punto con ID ${idString} ya no existe en el servidor. Se actualizará la lista.`, 
                 'warning'
               );
-              fetchPuntosRecoleccion(); // Refrescar la lista para mostrar el estado actual
+              fetchPuntosRecoleccion();
             } else {
               showModal('Error', 'No se pudo eliminar el punto de recolección', 'error');
             }
