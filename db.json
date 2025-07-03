@@ -104,6 +104,13 @@
       "direccion": "Plaza de San Francisco, Cuenca y Sucre, Centro Histórico, Quito",
       "estado": "Retirado",
       "observaciones": "Contenedor temporalmente retirado por restauración de la plaza"
+    },
+    {
+      "id": 16,
+      "tipo": "reciclaje",
+      "direccion": "fdgdfg",
+      "estado": "Activo",
+      "observaciones": "dfgdfd"
     }
   ]
 }
