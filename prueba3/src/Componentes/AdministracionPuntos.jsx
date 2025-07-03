@@ -73,13 +73,17 @@ const AdministracionPuntos = () => {
     e.preventDefault();
 
     if (!validateFormData(formData)) {
-      showModal('Error', 'Todos los campos son requeridos', 'warning');
+      showModal('Error', 'Los campos Tipo, Dirección y Estado son requeridos', 'warning');
       return;
     }
 
     if (editingPoint) {
       // Actualizar - mantener el ID como string
-      const updateData = { ...formData, id: editingPoint.id };
+      const updateData = { 
+        ...formData, 
+        id: editingPoint.id,
+        observaciones: formData.observaciones || '' // Asegurar que sea string vacío si no hay valor
+      };
       
       axios.put(`${ENDPOINT}/${editingPoint.id}`, updateData)
         .then(() => {
@@ -95,8 +99,12 @@ const AdministracionPuntos = () => {
       const existingIds = puntosRecoleccion.map(p => parseInt(p.id)).filter(id => !isNaN(id));
       const newId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
       
-      // Crear el nuevo punto con ID como STRING
-      const newPoint = { ...formData, id: newId.toString() };
+      // Crear el nuevo punto con ID como STRING y observaciones opcional
+      const newPoint = { 
+        ...formData, 
+        id: newId.toString(),
+        observaciones: formData.observaciones || '' // Asegurar que sea string vacío si no hay valor
+      };
       
       axios.post(ENDPOINT, newPoint)
         .then(() => {

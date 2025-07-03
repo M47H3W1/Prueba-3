@@ -5,7 +5,7 @@
       "tipo": "crítico",
       "direccion": "Av. Amazonas y Naciones Unidas, La Carolina, Quito",
       "estado": "Activo",
-      "observaciones": "Punto de alta demanda, requiere vaciado diario"
+      "observaciones": "asdasdad"
     },
     {
       "id": "2",
@@ -75,7 +75,7 @@
       "tipo": "contenedor",
       "direccion": "Centro Comercial El Jardín, Av. Amazonas y Av. República, Quito",
       "estado": "Activo",
-      "observaciones": "Contenedor de gran capacidad para zona comercial"
+      "observaciones": "aadasdasdas"
     },
     {
       "id": "13",
@@ -90,6 +90,13 @@
       "direccion": "Estación Central del Trolebús, Av. 10 de Agosto y Colón, Quito",
       "estado": "Activo",
       "observaciones": "Contenedor reforzado para alto tráfico de usuarios"
+    },
+    {
+      "id": "15",
+      "tipo": "crítico",
+      "direccion": "asd",
+      "estado": "Activo",
+      "observaciones": "asdasd"
     }
   ]
 }
