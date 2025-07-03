@@ -1,0 +1,329 @@
+.administracion-container {
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.admin-header {
+  background: linear-gradient(135deg, #2c3e50, #4a6741);
+  color: white;
+  padding: 2rem 0;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.admin-header h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.admin-header p {
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.admin-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-section label {
+  font-weight: 600;
+  color: #333;
+}
+
+.filter-select {
+  padding: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #545b62;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+.form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.form-container h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.punto-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.points-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.points-container h2 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.no-data {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  padding: 2rem;
+}
+
+.points-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.point-card {
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  padding: 1.5rem;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.point-card:hover {
+  border-color: #007bff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.point-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.tipo-badge,
+.estado-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tipo-critico {
+  background-color: #dc3545;
+  color: white;
+}
+
+.tipo-reciclaje {
+  background-color: #28a745;
+  color: white;
+}
+
+.tipo-especial {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.tipo-contenedor {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.estado-activo {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.estado-danado {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.estado-retirado {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.point-content {
+  margin-bottom: 1.5rem;
+}
+
+.point-content h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.point-content p {
+  margin: 0.5rem 0;
+  color: #666;
+  line-height: 1.5;
+}
+
+.point-content strong {
+  color: #333;
+}
+
+.point-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.point-actions .btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .admin-content {
+    padding: 1rem;
+  }
+  
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .points-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-buttons {
+    flex-direction: column;
+  }
+  
+  .point-actions {
+    flex-direction: column;
+  }
+}
