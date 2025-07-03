@@ -48,7 +48,7 @@ const AdministracionPuntos = () => {
   };
 
   const validateFormData = (data) => {
-    return data.tipo && data.direccion && data.estado && data.observaciones;
+    return data.tipo && data.direccion && data.estado;
   };
 
   const fetchPuntosRecoleccion = () => {
@@ -78,6 +78,7 @@ const AdministracionPuntos = () => {
     }
 
     if (editingPoint) {
+      // Actualizar - mantener el ID como string
       const updateData = { ...formData, id: editingPoint.id };
       
       axios.put(`${ENDPOINT}/${editingPoint.id}`, updateData)
@@ -90,10 +91,12 @@ const AdministracionPuntos = () => {
           showModal('Error', 'Error al actualizar', 'error');
         });
     } else {
-      const existingIds = puntosRecoleccion.map(p => p.id);
+      // Crear nuevo - convertir IDs existentes a números para calcular el máximo
+      const existingIds = puntosRecoleccion.map(p => parseInt(p.id)).filter(id => !isNaN(id));
       const newId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
       
-      const newPoint = { ...formData, id: newId };
+      // Crear el nuevo punto con ID como STRING
+      const newPoint = { ...formData, id: newId.toString() };
       
       axios.post(ENDPOINT, newPoint)
         .then(() => {
@@ -114,8 +117,6 @@ const AdministracionPuntos = () => {
   };
 
   const handleDelete = (id) => {
-    const pointToDelete = puntosRecoleccion.find(point => point.id === id);
-    
     showModal(
       'Confirmar',
       `¿Eliminar el punto ID ${id}?`,
