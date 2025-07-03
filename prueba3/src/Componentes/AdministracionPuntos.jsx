@@ -4,12 +4,12 @@ import Modal from './Modal';
 import FormularioPunto from './FormularioPunto';
 import './AdministracionPuntos.css';
 
-const ENDPOINT = 'http://localhost:3000/puntosRecoleccion';
+const ENDpunto = 'http://localhost:3000/puntosRecoleccion';
 
 const AdministracionPuntos = () => {
   const [puntosRecoleccion, setPuntosRecoleccion] = useState([]);
   const [showForm, setShowForm] = useState(false);
-  const [editingPoint, setEditingPoint] = useState(null);
+  const [editingpunto, setEditingpunto] = useState(null);
   const [formData, setFormData] = useState({
     id: '',
     tipo: '',
@@ -52,7 +52,7 @@ const AdministracionPuntos = () => {
   };
 
   const fetchPuntosRecoleccion = () => {
-    axios.get(ENDPOINT)
+    axios.get(ENDpunto)
       .then(response => {
         setPuntosRecoleccion(response.data);
       })
@@ -77,15 +77,15 @@ const AdministracionPuntos = () => {
       return;
     }
 
-    if (editingPoint) {
+    if (editingpunto) {
       // Actualizar - mantener el ID como string
       const updateData = { 
         ...formData, 
-        id: editingPoint.id,
+        id: editingpunto.id,
         observaciones: formData.observaciones || '' // Asegurar que sea string vacío si no hay valor
       };
       
-      axios.put(`${ENDPOINT}/${editingPoint.id}`, updateData)
+      axios.put(`${ENDpunto}/${editingpunto.id}`, updateData)
         .then(() => {
           showModal('Éxito', 'Punto actualizado correctamente', 'success');
           resetForm();
@@ -100,13 +100,13 @@ const AdministracionPuntos = () => {
       const newId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
       
       // Crear el nuevo punto con ID como STRING y observaciones opcional
-      const newPoint = { 
+      const newpunto = { 
         ...formData, 
         id: newId.toString(),
         observaciones: formData.observaciones || '' // Asegurar que sea string vacío si no hay valor
       };
       
-      axios.post(ENDPOINT, newPoint)
+      axios.post(ENDpunto, newpunto)
         .then(() => {
           showModal('Éxito', 'Punto creado correctamente', 'success');
           resetForm();
@@ -118,9 +118,9 @@ const AdministracionPuntos = () => {
     }
   };
 
-  const handleEdit = (point) => {
-    setEditingPoint(point);
-    setFormData({ ...point });
+  const handleEdit = (punto) => {
+    setEditingpunto(punto);
+    setFormData({ ...punto });
     setShowForm(true);
   };
 
@@ -130,7 +130,7 @@ const AdministracionPuntos = () => {
       `¿Eliminar el punto ID ${id}?`,
       'confirm',
       () => {
-        axios.delete(`${ENDPOINT}/${id}`)
+        axios.delete(`${ENDpunto}/${id}`)
           .then(() => {
             showModal('Éxito', 'Punto eliminado correctamente', 'success');
             fetchPuntosRecoleccion();
@@ -146,7 +146,7 @@ const AdministracionPuntos = () => {
 
   const resetForm = () => {
     setShowForm(false);
-    setEditingPoint(null);
+    setEditingpunto(null);
     setFormData({
       id: '',
       tipo: '',
@@ -161,7 +161,7 @@ const AdministracionPuntos = () => {
     setShowForm(newShowForm);
     
     if (!newShowForm) {
-      setEditingPoint(null);
+      setEditingpunto(null);
       setFormData({
         id: '',
         tipo: '',
@@ -176,12 +176,12 @@ const AdministracionPuntos = () => {
     setFilter(e.target.value);
   };
 
-  const getFilteredPoints = () => {
+  const getFilteredpuntos = () => {
     if (filter === 'todos') {
       return puntosRecoleccion;
     }
-    return puntosRecoleccion.filter(point => 
-      point.tipo === filter || point.estado === filter
+    return puntosRecoleccion.filter(punto => 
+      punto.tipo === filter || punto.estado === filter
     );
   };
 
@@ -204,7 +204,7 @@ const AdministracionPuntos = () => {
     }
   };
 
-  const filteredPoints = getFilteredPoints();
+  const filteredpuntos = getFilteredpuntos();
 
   return (
     <div className="administracion-container">
@@ -248,43 +248,43 @@ const AdministracionPuntos = () => {
           onInputChange={handleInputChange}
           onSubmit={handleSubmit}
           onCancel={resetForm}
-          isEditing={!!editingPoint}
+          isEditing={!!editingpunto}
         />
 
-        <div className="points-container">
-          <h2>Puntos de Recolección ({filteredPoints.length})</h2>
+        <div className="puntos-container">
+          <h2>Puntos de Recolección ({filteredpuntos.length})</h2>
           
-          {filteredPoints.length === 0 ? (
+          {filteredpuntos.length === 0 ? (
             <p className="no-data">No hay puntos para mostrar</p>
           ) : (
-            <div className="points-grid">
-              {filteredPoints.map(point => (
-                <div key={point.id} className="point-card">
-                  <div className="point-header">
-                    <span className={`tipo-badge ${getTipoClass(point.tipo)}`}>
-                      {point.tipo}
+            <div className="puntos-grid">
+              {filteredpuntos.map(punto => (
+                <div key={punto.id} className="punto-card">
+                  <div className="punto-header">
+                    <span className={`tipo-badge ${getTipoClass(punto.tipo)}`}>
+                      {punto.tipo}
                     </span>
-                    <span className={`estado-badge ${getEstadoClass(point.estado)}`}>
-                      {point.estado}
+                    <span className={`estado-badge ${getEstadoClass(punto.estado)}`}>
+                      {punto.estado}
                     </span>
                   </div>
                   
-                  <div className="point-content">
-                    <h3>ID: {point.id}</h3>
-                    <p><strong>Dirección:</strong> {point.direccion}</p>
-                    <p><strong>Observaciones:</strong> {point.observaciones}</p>
+                  <div className="punto-content">
+                    <h3>ID: {punto.id}</h3>
+                    <p><strong>Dirección:</strong> {punto.direccion}</p>
+                    <p><strong>Observaciones:</strong> {punto.observaciones}</p>
                   </div>
                   
-                  <div className="point-actions">
+                  <div className="punto-actions">
                     <button 
                       className="btn btn-edit" 
-                      onClick={() => handleEdit(point)}
+                      onClick={() => handleEdit(punto)}
                     >
                       Editar
                     </button>
                     <button 
                       className="btn btn-delete" 
-                      onClick={() => handleDelete(point.id)}
+                      onClick={() => handleDelete(punto.id)}
                     >
                       Eliminar
                     </button>
