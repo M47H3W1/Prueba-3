@@ -77,9 +77,21 @@ const AdministracionPuntos = () => {
     
     axios.get(ENDPOINT)
       .then(response => {
-        setPuntosRecoleccion(response.data);
-        console.log('✅ Puntos cargados:', response.data.length);
-        console.table(response.data);
+        // Filtrar puntos que tienen todos los campos requeridos
+        const validPoints = response.data.filter(point => 
+          point.id && point.tipo && point.direccion && point.estado && point.observaciones
+        );
+        
+        setPuntosRecoleccion(validPoints);
+        console.log('✅ Puntos cargados:', validPoints.length);
+        console.log('📊 Puntos válidos de', response.data.length, 'totales');
+        console.table(validPoints);
+        
+        // Alertar si hay puntos incompletos
+        if (validPoints.length !== response.data.length) {
+          const invalidCount = response.data.length - validPoints.length;
+          console.warn('⚠️ Se omitieron', invalidCount, 'puntos con datos incompletos');
+        }
       })
       .catch(error => {
         console.error('❌ Error al cargar:', error.message);
@@ -122,13 +134,17 @@ const AdministracionPuntos = () => {
         })
         .catch(error => {
           console.error('❌ Error al actualizar:', error.message);
-          showModal('Error', 'No se pudo actualizar el punto de recolección', 'error');
+          if (error.response?.status === 404) {
+            showModal('Error', 'El punto de recolección ya no existe. Se actualizará la lista.', 'error');
+            fetchPuntosRecoleccion(); // Refrescar la lista
+          } else {
+            showModal('Error', 'No se pudo actualizar el punto de recolección', 'error');
+          }
         });
     } else {
       // Crear nuevo punto
-      const newId = puntosRecoleccion.length > 0 
-        ? Math.max(...puntosRecoleccion.map(p => parseInt(p.id))) + 1 
-        : 1;
+      const existingIds = puntosRecoleccion.map(p => parseInt(p.id)).filter(id => !isNaN(id));
+      const newId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1;
       
       const newPoint = { ...formData, id: newId.toString() };
       console.log('🔄 Creando nuevo punto ID:', newId);
@@ -149,18 +165,38 @@ const AdministracionPuntos = () => {
 
   const handleEdit = (point) => {
     console.log('📝 Editando punto:', point.id);
+    
+    // Verificar que el punto existe antes de editarlo
+    if (!point.id) {
+      showModal('Error', 'No se puede editar un punto sin ID válido', 'error');
+      return;
+    }
+    
     setEditingPoint(point);
     setFormData({ ...point });
     setShowForm(true);
   };
 
   const handleDelete = (id) => {
+    // Verificar que el ID existe
+    if (!id) {
+      showModal('Error', 'No se puede eliminar un punto sin ID válido', 'error');
+      return;
+    }
+
     const pointToDelete = puntosRecoleccion.find(point => point.id == id);
     console.log('🗑️ Solicitando eliminar:', pointToDelete?.id);
     
+    // Verificar que el punto existe en la lista actual
+    if (!pointToDelete) {
+      showModal('Error', 'El punto de recolección no existe en la lista actual', 'error');
+      fetchPuntosRecoleccion(); // Refrescar la lista
+      return;
+    }
+    
     showModal(
       'Confirmar Eliminación',
-      `¿Eliminar el punto de recolección ID ${id}?`,
+      `¿Eliminar el punto de recolección ID ${id}?\n\nDirección: ${pointToDelete.direccion}`,
       'confirm',
       () => {
         console.log('🔄 Eliminando punto ID:', id);
@@ -173,7 +209,19 @@ const AdministracionPuntos = () => {
           })
           .catch(error => {
             console.error('❌ Error al eliminar:', error.message);
-            showModal('Error', 'No se pudo eliminar el punto de recolección', 'error');
+            console.error('📋 Status:', error.response?.status);
+            console.error('📋 Response:', error.response?.data);
+            
+            if (error.response?.status === 404) {
+              showModal(
+                'Punto No Encontrado', 
+                `El punto con ID ${id} ya no existe en el servidor. Se actualizará la lista.`, 
+                'warning'
+              );
+              fetchPuntosRecoleccion(); // Refrescar la lista para mostrar el estado actual
+            } else {
+              showModal('Error', 'No se pudo eliminar el punto de recolección', 'error');
+            }
           });
         closeModal();
       },
@@ -304,29 +352,31 @@ const AdministracionPuntos = () => {
                 <div key={point.id} className="point-card">
                   <div className="point-header">
                     <span className={`tipo-badge ${getTipoClass(point.tipo)}`}>
-                      {point.tipo.charAt(0).toUpperCase() + point.tipo.slice(1)}
+                      {point.tipo ? point.tipo.charAt(0).toUpperCase() + point.tipo.slice(1) : 'Sin tipo'}
                     </span>
                     <span className={`estado-badge ${getEstadoClass(point.estado)}`}>
-                      {point.estado}
+                      {point.estado || 'Sin estado'}
                     </span>
                   </div>
                   
                   <div className="point-content">
-                    <h3>ID: {point.id}</h3>
-                    <p><strong>Dirección:</strong> {point.direccion}</p>
-                    <p><strong>Observaciones:</strong> {point.observaciones}</p>
+                    <h3>ID: {point.id || 'Sin ID'}</h3>
+                    <p><strong>Dirección:</strong> {point.direccion || 'Sin dirección'}</p>
+                    <p><strong>Observaciones:</strong> {point.observaciones || 'Sin observaciones'}</p>
                   </div>
                   
                   <div className="point-actions">
                     <button 
                       className="btn btn-edit" 
                       onClick={() => handleEdit(point)}
+                      disabled={!point.id}
                     >
                       Editar
                     </button>
                     <button 
                       className="btn btn-delete" 
                       onClick={() => handleDelete(point.id)}
+                      disabled={!point.id}
                     >
                       Eliminar
                     </button>
