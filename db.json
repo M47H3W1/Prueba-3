@@ -1,116 +1,109 @@
 {
   "puntosRecoleccion": [
     {
-      "id": "1",
+      "id": 1,
       "tipo": "crítico",
       "direccion": "Av. Amazonas y Naciones Unidas, La Carolina, Quito",
       "estado": "Activo",
       "observaciones": "Punto de alta demanda, requiere vaciado diario"
     },
     {
-      "id": "2",
+      "id": 2,
       "tipo": "reciclaje",
       "direccion": "Plaza Foch, Calle Foch y Av. Amazonas, La Mariscal, Quito",
       "estado": "Activo",
       "observaciones": "Contenedor exclusivo para material reciclable"
     },
     {
-      "id": "3",
+      "id": 3,
       "tipo": "especial",
       "direccion": "Centro Histórico, Plaza Grande, García Moreno y Chile, Quito",
       "estado": "Dañado",
       "observaciones": "Contenedor vandalizado, requiere reparación urgente"
     },
     {
-      "id": "4",
+      "id": 4,
       "tipo": "crítico",
       "direccion": "Terminal Terrestre Quitumbe, Av. Morán Valverde, Quitumbe, Quito",
       "estado": "Activo",
       "observaciones": "Alto volumen de desechos, monitoreo constante"
     },
     {
-      "id": "5",
+      "id": 5,
       "tipo": "reciclaje",
       "direccion": "Parque La Carolina, Av. Eloy Alfaro y Av. De los Shyris, Quito",
       "estado": "Retirado",
       "observaciones": "Contenedor retirado por renovación del parque"
     },
     {
-      "id": "6",
+      "id": 6,
       "tipo": "especial",
       "direccion": "Hospital Eugenio Espejo, Av. Gran Colombia y Yaguachi, Quito",
       "estado": "Activo",
       "observaciones": "Contenedor para desechos médicos especiales"
     },
     {
-      "id": "7",
+      "id": 7,
       "tipo": "crítico",
       "direccion": "Mercado San Roque, Av. 24 de Mayo y Cumandá, Centro Histórico, Quito",
       "estado": "Dañado",
       "observaciones": "Pendiente de mantenimiento, tapa rota"
     },
     {
-      "id": "8",
+      "id": 8,
       "tipo": "reciclaje",
       "direccion": "Universidad Central del Ecuador, Av. América y Universitaria, Quito",
       "estado": "Activo",
       "observaciones": "Programa de separación de residuos estudiantil"
     },
     {
-      "id": "9",
+      "id": 9,
       "tipo": "especial",
       "direccion": "Aeropuerto Internacional Mariscal Sucre, Av. Simón Bolívar, Tababela, Quito",
       "estado": "Activo",
       "observaciones": "Contenedor de alta seguridad para desechos especiales"
     },
     {
-      "id": "10",
+      "id": 10,
       "tipo": "crítico",
       "direccion": "Estación Norte del Ecovía, Av. 10 de Agosto y Río Coca, Quito",
       "estado": "Dañado",
       "observaciones": "Contenedor vandalizado, pendiente de reemplazo"
     },
     {
-      "id": "11",
+      "id": 11,
       "tipo": "contenedor",
       "direccion": "Centro Comercial El Jardín, Av. Amazonas y Av. República, Quito",
       "estado": "Activo",
       "observaciones": "Contenedor de gran capacidad para zona comercial"
     },
     {
-      "id": "12",
+      "id": 12,
       "tipo": "contenedor",
       "direccion": "Parque El Ejido, Av. Patria y Av. 6 de Diciembre, Quito",
       "estado": "Activo",
       "observaciones": "Contenedor resistente al clima para área recreativa"
     },
     {
-      "id": "13",
+      "id": 13,
       "tipo": "contenedor",
       "direccion": "Colegio San Gabriel, Av. América y Mercadillo, Quito",
       "estado": "Dañado",
       "observaciones": "Contenedor con cerradura dañada, requiere reparación"
     },
     {
-      "id": "14",
+      "id": 14,
       "tipo": "contenedor",
       "direccion": "Estación Central del Trolebús, Av. 10 de Agosto y Colón, Quito",
       "estado": "Activo",
       "observaciones": "Contenedor reforzado para alto tráfico de usuarios"
     },
     {
-      "id": "15",
-      "tipo": "contenedor",
-      "direccion": "Plaza de San Francisco, Cuenca y Sucre, Centro Histórico, Quito",
-      "estado": "Retirado",
-      "observaciones": "Contenedor temporalmente retirado por restauración de la plaza"
-    },
-    {
-      "id": 16,
-      "tipo": "reciclaje",
-      "direccion": "fdgdfg",
-      "estado": "Activo",
-      "observaciones": "dfgdfd"
+      "id": 15,
+      "tipo": "crítico",
+      "direccion": "asd",
+      "estado": "Dañado",
+      "observaciones": "asd"
     }
   ]
 }
